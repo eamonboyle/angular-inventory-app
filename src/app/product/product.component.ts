@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, ViewChild, EventEmitter, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ClrWizard } from '@clr/angular';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
+import pick from 'lodash-es/pick';
 
 function minDateValidation(date: Date): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -60,11 +61,11 @@ export class ProductComponent implements OnInit, OnChanges {
     if (this.product) {
       this.productForm.setValue({
         basic: {
-          ..._.pick(this.product, ['name', 'description', 'active']),
+          ...pick(this.product, ['name', 'description', 'active']),
           features: this.product.features || [''],
         },
         expiration: {
-          ..._.pick(this.product, ['expirationDate']),
+          ...pick(this.product, ['expirationDate']),
         }
       });
       this.deviceType = this.product.type;
